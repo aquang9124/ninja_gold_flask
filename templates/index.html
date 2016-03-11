@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ninja Gold</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			{% if money >= 0 %}
+				<p>Your Gold: <span class="golds">{{ money }}</span></p>
+			{% else %}
+				<p>Your Gold: <span class="golds">10</span></p>
+			{% endif %}
+		</div>
+		<div class="row">
+			<div class="col-md-3 building">
+				<h1 class="text-center">Farm</h1>
+				<p class="text-center">(earns 10-20 golds)</p>
+				<form action="/gold" method="POST" class="text-center">
+					<input type="hidden" name="building" value="farm">
+					<button class="btn btn-primary">Find Gold!</button>
+				</form>
+			</div>
+			<div class="col-md-3 building">
+				<h1 class="text-center">Cave</h1>
+				<p class="text-center">(earns 5-10 golds)</p>
+				<form action="/gold" method="POST" class="text-center">
+					<input type="hidden" name="building" value="cave">
+					<button class="btn btn-primary">Find Gold!</button>
+				</form>
+			</div>
+			<div class="col-md-3 building">
+				<h1 class="text-center">House</h1>
+				<p class="text-center">(earns 2-5 golds)</p>
+				<form action="/gold" method="POST" class="text-center">
+					<input type="hidden" name="building" value="house">
+					<button class="btn btn-primary">Find Gold!</button>
+				</form>
+			</div>
+			<div class="col-md-3 building">
+				<h1 class="text-center">Casino</h1>
+				<p class="text-center">(earns/loses 0-50 golds)</p>
+				<form action="/gold" method="POST" class="text-center">
+					<input type="hidden" name="building" value="casino">
+					<button class="btn btn-primary">Find Gold!</button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<h1>Activities:</h1>
+			<section id="consolelog">
+				{% if activities != [] %}
+					{% for item in activities %}
+						<p class="plus">{{ item }}</p>
+					{% endfor %}
+				{% endif %}
+				{% if losses != [] %}
+					{% for sadness in losses %}
+						<p class="minus">{{ sadness }}</p>
+					{% endfor %}
+				{% endif %}
+			</section>
+		</div>
+		<div class="row">
+			<form action="/reset" method="post" class="my-form">
+				<button class="btn btn-success">Reset Game</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
